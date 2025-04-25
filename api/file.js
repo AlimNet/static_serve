@@ -8,9 +8,9 @@ export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
   
   // Указываем файл для скачивания
-  const file = await fetch('https://static-serve-ruby.vercel.app/fake_invoice.xlsx');
-  const buffer = await file.buffer();
+  const response = await fetch('https://static-serve-ruby.vercel.app/fake_invoice.xlsx', {responseType: 'blob'});
+  const blob = new Blob([response.data]);
 
   // Отправляем файл
-  res.status(200).send(buffer);
+  res.status(200).send(blob);
 }
